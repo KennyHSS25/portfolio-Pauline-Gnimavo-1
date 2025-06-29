@@ -1,0 +1,127 @@
+<!-- contact.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pauline Gnimavo - Contact</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/portrait1.jpg" alt="Pauline Gnimavo" class="nav-portrait">
+                    <span>Pauline<span>Gnimavo</span></span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="parcours.html">Parcours</a></li>
+                    <li><a href="projets.html">Projets</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title observe">
+                <h2>Contactez-moi</h2>
+                <p>Disponible pour un nouveau défi ou simplement échanger autour d'un projet</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info observe">
+                    <h3>Coordonnées</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>paulinegnimavo24@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-file-download"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Télécharger mon CV</h4>
+                                <a href="CV_2025-06-29_Pauline_GNIMAVO.pdf" download class="download-cv">
+                                    Format PDF <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Réseaux Professionnels</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/1EisEuG7PS/" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/2290159547724" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form observe">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Adresse email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </form>
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i> Votre message a été envoyé avec succès !
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Pauline<span>Gnimavo</span></div>
+                <div class="footer-nav">
+                    <a href="index.html">Accueil</a>
+                    <a href="parcours.html">Parcours</a>
+                    <a href="projets.html">Projets</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <p class="copyright">© 2023 Pauline Gnimavo. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>
