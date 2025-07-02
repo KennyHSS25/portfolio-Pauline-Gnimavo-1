@@ -1,104 +1,1096 @@
-<!-- contact.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pauline Gnimavo - Contact</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    /* Variables et reset */
+    :root {
+        --primary-color: #6a0dad;
+        --secondary-color: #d291bc;
+        --accent-color: #ff6b6b;
+        --light-color: #f8f4ff;
+        --dark-color: #4b0082;
+        --text-color: #333;
+        --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        --navbar-height: 80px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.7;
+        color: var(--text-color);
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #f9f9f9 0%, #f0e9ff 100%);
+        animation: bgFade 8s infinite alternate;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    section {
+        padding: 80px 0; /* Réduit de 100px à 80px pour moins d'espace */
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px; /* Réduit de 60px à 40px pour moins d'espace */
+        position: relative;
+        padding: 0 15px;
+    }
+
+    .section-title h2 {
+        font-size: 2.8rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+        letter-spacing: 1px;
+        animation: titlePulse 4s infinite ease-in-out;
+    }
+
+    .section-title p {
+        font-size: 1.2rem;
+        color: var(--dark-color);
+        max-width: 700px;
+        margin: 0 auto;
+        font-weight: 500;
+    }
+
+    .section-title h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+        animation: lineGrow 1.2s ease-out forwards;
+    }
+
+    /* Header & Navigation */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        transition: var(--transition);
+        backdrop-filter: blur(5px);
+        height: var(--navbar-height);
+    }
+
+    .navbar {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        font-family: 'Playfair Display', serif;
+        white-space: nowrap;
+    }
+
+    .logo span {
+        color: var(--secondary-color);
+    }
+
+    .nav-portrait {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid var(--secondary-color);
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.5s ease;
+    }
+
+    .logo:hover .nav-portrait {
+        transform: rotate(5deg) scale(1.05);
+    }
+
+    /* Menu desktop */
+    .nav-menu {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin-left: 30px;
+        position: relative;
+    }
+
+    .nav-menu a {
+        font-weight: 600;
+        position: relative;
+        padding: 5px 0;
+        color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        transition: var(--transition);
+    }
+
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after {
+        width: 100%;
+    }
+
+    /* Menu mobile */
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        transition: var(--transition);
+        background-color: var(--primary-color);
+    }
+
+    /* ===== HERO CONTACT ===== */
+    #contact-hero {
+        min-height: 60vh; /* Réduit de 70vh à 60vh */
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: var(--navbar-height);
+        background: linear-gradient(135deg, rgba(248, 244, 255, 0.9) 0%, rgba(248, 244, 255, 0.7) 100%);
+    }
+
+    .contact-hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px 0; /* Réduit de 40px à 30px */
+        position: relative;
+        z-index: 2;
+    }
+
+    .contact-hero-content h1 {
+        font-size: 3.2rem; /* Réduit de 3.8rem */
+        color: var(--primary-color);
+        margin-bottom: 15px; /* Réduit de 20px */
+        font-family: 'Playfair Display', serif;
+        animation: fadeUp 1s ease forwards;
+    }
+
+    .contact-hero-content p {
+        font-size: 1.3rem; /* Réduit de 1.5rem */
+        color: var(--dark-color);
+        margin-bottom: 30px; /* Réduit de 40px */
+        animation: fadeUp 1s ease forwards 0.3s;
+        font-weight: 500;
+    }
+
+    .animated-text {
+        min-height: 100px; /* Réduit de 120px */
+        margin: 20px 0; /* Réduit de 30px */
+        overflow: hidden;
+        position: relative;
+    }
+
+    .text-slider {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        font-size: 1.6rem; /* Réduit de 1.8rem */
+        font-weight: 600;
+        color: var(--dark-color);
+        text-align: center;
+        transform: translateY(30px);
+        animation: slideText 12s infinite;
+    }
+
+    .text-slider:nth-child(1) { 
+        animation-delay: 0s; 
+        color: var(--primary-color);
+    }
+    .text-slider:nth-child(2) { 
+        animation-delay: 4s; 
+        color: var(--accent-color);
+    }
+    .text-slider:nth-child(3) { 
+        animation-delay: 8s; 
+        color: var(--dark-color);
+    }
+
+    .contact-deco {
+        position: absolute;
+        z-index: 1;
+        opacity: 0.1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .deco-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        animation: float 8s infinite ease-in-out;
+    }
+
+    .deco-circle:nth-child(1) {
+        top: 10%;
+        left: 5%;
+        width: 120px;
+        height: 120px;
+        animation-delay: 0s;
+    }
+
+    .deco-circle:nth-child(2) {
+        bottom: 20%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 2s;
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px; /* Réduit de 50px à 30px */
+        margin-top: 30px; /* Réduit de 50px */
+    }
+
+    .contact-info {
+        background: white;
+        border-radius: 20px;
+        padding: 30px; /* Réduit de 40px */
+        box-shadow: 0 15px 40px rgba(106, 13, 173, 0.1);
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.8s ease forwards;
+        position: relative;
+    }
+
+    .contact-info:nth-child(1) { animation-delay: 0.2s; }
+    .contact-info:nth-child(2) { animation-delay: 0.4s; }
+
+    .contact-info:hover {
+        transform: translateY(-10px); /* Réduit de -15px */
+        box-shadow: 0 25px 60px rgba(106, 13, 173, 0.2);
+    }
+
+    .contact-info h3 {
+        font-size: 1.6rem; /* Réduit de 1.8rem */
+        color: var(--primary-color);
+        margin-bottom: 20px; /* Réduit de 30px */
+        font-family: 'Playfair Display', serif;
+        position: relative;
+        padding-bottom: 12px; /* Réduit de 15px */
+    }
+
+    .contact-info h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px; /* Réduit de 80px */
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+        animation: linePulse 3s infinite ease-in-out;
+    }
+
+    .contact-details {
+        margin-bottom: 20px; /* Réduit de 30px */
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px; /* Réduit de 25px */
+        transition: var(--transition);
+        padding: 12px; /* Réduit de 15px */
+        border-radius: 10px;
+    }
+
+    .contact-item:hover {
+        background: rgba(210, 145, 188, 0.05);
+        transform: translateX(8px); /* Réduit de 10px */
+    }
+
+    .contact-icon {
+        width: 45px; /* Réduit de 50px */
+        height: 45px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px; /* Réduit de 20px */
+        color: white;
+        font-size: 1.3rem; /* Réduit de 1.5rem */
+        transition: var(--transition);
+    }
+
+    .contact-item:hover .contact-icon {
+        transform: rotate(8deg) scale(1.1); /* Ajusté */
+    }
+
+    .contact-text h4 {
+        font-size: 1.2rem; /* Réduit de 1.3rem */
+        margin-bottom: 5px;
+        color: var(--dark-color);
+    }
+
+    .contact-text p, .contact-text a {
+        font-size: 1rem; /* Réduit de 1.1rem */
+        color: #555;
+        transition: var(--transition);
+        word-break: break-all; /* Correction pour l'email */
+    }
+
+    .contact-text a:hover {
+        color: var(--accent-color);
+        transform: translateX(5px);
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px; /* Réduit de 20px */
+        margin-top: 20px; /* Réduit de 30px */
+    }
+
+    .social-link {
+        width: 45px; /* Réduit de 50px */
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(106, 13, 173, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-size: 1.3rem; /* Réduit de 1.5rem */
+        transition: var(--transition);
+    }
+
+    .social-link:hover {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        transform: translateY(-6px) rotate(5deg); /* Réduit de -8px */
+    }
+
+    /* Bouton Télécharger CV */
+    .cv-download {
+        margin-top: 20px; /* Réduit de 30px */
+        text-align: center;
+    }
+
+    .cv-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px; /* Réduit de 14px 28px */
+        background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        color: white;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        font-size: 1rem; /* Réduit de 1.1rem */
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .cv-btn:hover {
+        transform: translateY(-4px) scale(1.03); /* Réduit de -5px */
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Réduit de 12px 30px */
+    }
+
+    .cv-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        z-index: -1;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .cv-btn:hover::after {
+        opacity: 1;
+    }
+
+    .cv-btn i {
+        margin-right: 8px; /* Réduit de 10px */
+        font-size: 1.1rem; /* Réduit de 1.2rem */
+    }
+
+    /* Contact Form */
+    .contact-form {
+        background: white;
+        border-radius: 20px;
+        padding: 30px; /* Réduit de 40px */
+        box-shadow: 0 15px 40px rgba(106, 13, 173, 0.1);
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.8s ease forwards 0.6s;
+        position: relative;
+    }
+
+    .contact-form:hover {
+        transform: translateY(-10px); /* Réduit de -15px */
+        box-shadow: 0 20px 50px rgba(106, 13, 173, 0.2); /* Réduit de 25px 60px */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Réduit de 25px */
+        position: relative;
+        animation: fadeUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.2s; }
+    .form-group:nth-child(2) { animation-delay: 0.4s; }
+    .form-group:nth-child(3) { animation-delay: 0.6s; }
+    .form-group:nth-child(4) { animation-delay: 0.8s; }
+    .form-group:nth-child(5) { animation-delay: 1.0s; }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px; /* Réduit de 8px */
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 0.95rem; /* Ajouté pour mobile */
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 16px; /* Réduit de 15px 20px */
+        border: 2px solid #e0d6eb;
+        border-radius: 10px; /* Réduit de 12px */
+        font-size: 1rem; /* Réduit de 1.1rem */
+        transition: var(--transition);
+        background: #f8f4ff;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(210, 145, 188, 0.3);
+        background: white;
+    }
+
+    textarea.form-control {
+        min-height: 150px; /* Réduit de 180px */
+        resize: vertical;
+    }
+
+    .submit-btn {
+        display: inline-block;
+        width: 100%;
+        padding: 14px; /* Réduit de 16px */
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border: none;
+        border-radius: 10px; /* Réduit de 12px */
+        font-size: 1.1rem; /* Réduit de 1.2rem */
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 0 5px 15px rgba(106, 13, 173, 0.2); /* Réduit de 6px 20px */
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-4px); /* Réduit de -5px */
+        box-shadow: 0 10px 25px rgba(106, 13, 173, 0.3); /* Réduit de 12px 30px */
+    }
+
+    .submit-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        z-index: -1;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .submit-btn:hover::after {
+        opacity: 1;
+    }
+
+    /* Map */
+    .contact-map {
+        margin-top: 40px; /* Réduit de 50px */
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(106, 13, 173, 0.1); /* Réduit de 15px 40px */
+        height: 350px; /* Réduit de 400px */
+        background: #e0d6eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .map-placeholder {
+        text-align: center;
+        padding: 15px; /* Réduit de 20px */
+        max-width: 500px;
+    }
+
+    .map-placeholder i {
+        font-size: 3rem; /* Réduit de 3.5rem */
+        color: var(--primary-color);
+        margin-bottom: 15px; /* Réduit de 20px */
+        animation: iconFloat 3s infinite ease-in-out;
+    }
+
+    .map-placeholder h3 {
+        font-size: 1.6rem; /* Réduit de 1.8rem */
+        margin-bottom: 12px; /* Réduit de 15px */
+        color: var(--primary-color);
+    }
+
+    .map-placeholder p {
+        color: var(--dark-color);
+        font-size: 1rem; /* Ajouté pour homogénéité */
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        color: white;
+        padding: 60px 0 20px; /* Réduit de 80px 0 30px */
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .footer-logo {
+        font-size: 2rem; /* Réduit de 2.2rem */
+        font-weight: 700;
+        margin-bottom: 15px; /* Réduit de 20px */
+        font-family: 'Playfair Display', serif;
+        animation: fadeUp 1s ease;
+    }
+
+    .footer-logo span {
+        color: var(--secondary-color);
+    }
+
+    .footer-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 25px; /* Réduit de 30px */
+        gap: 20px; /* Réduit de 25px */
+    }
+
+    .footer-nav a {
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 1rem; /* Réduit de 1.1rem */
+        position: relative;
+    }
+
+    .footer-nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px; /* Réduit de -5px */
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-color);
+        transition: var(--transition);
+    }
+
+    .footer-nav a:hover::after {
+        width: 100%;
+    }
+
+    .footer-nav a:hover {
+        color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+
+    .copyright {
+        font-size: 0.9rem; /* Réduit de 0.95rem */
+        opacity: 0.8;
+        margin-top: 20px; /* Réduit de 30px */
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    @keyframes slideText {
+        0%, 25% { opacity: 0; transform: translateY(30px); }
+        5%, 20% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineGrow {
+        from { width: 0; }
+        to { width: 80px; }
+    }
+
+    @keyframes iconPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    @keyframes iconFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes linePulse {
+        0%, 100% { width: 80px; opacity: 1; }
+        50% { width: 100px; opacity: 0.8; }
+    }
+
+    @keyframes bgFade {
+        from { background-position: 0% 0%; }
+        to { background-position: 100% 100%; }
+    }
+
+    @keyframes titlePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+
+    /* RESPONSIVE STYLES */
+    @media (max-width: 992px) {
+        .contact-hero-content h1 {
+            font-size: 2.8rem; /* Réduit de 3.2rem */
+        }
+        
+        .section-title h2 {
+            font-size: 2rem; /* Réduit de 2.3rem */
+        }
+        
+        .contact-info h3, .map-placeholder h3 {
+            font-size: 1.4rem; /* Réduit de 1.6rem */
+        }
+    }
+    
+    @media (max-width: 768px) {
+        :root {
+            --navbar-height: 70px; /* Réduit de 80px */
+        }
+        
+        #contact-hero {
+            min-height: 50vh; /* Réduit de 60vh */
+            padding-top: var(--navbar-height);
+        }
+        
+        .contact-hero-content h1 {
+            font-size: 2.2rem; /* Réduit de 2.6rem */
+        }
+        
+        .contact-hero-content p {
+            font-size: 1.1rem; /* Réduit de 1.2rem */
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem; /* Réduit de 2rem */
+        }
+        
+        .section-title p {
+            font-size: 1rem; /* Réduit de 1.1rem */
+        }
+        
+        /* Navigation mobile */
+        .hamburger {
+            display: block;
+        }
+        
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: var(--navbar-height);
+            flex-direction: column;
+            background-color: white;
+            width: 100%;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            padding: 30px 0; /* Réduit de 40px */
+            z-index: 999;
+            height: calc(100vh - var(--navbar-height));
+            overflow-y: auto;
+        }
+        
+        .nav-menu.active {
+            left: 0;
+        }
+        
+        .nav-menu li {
+            margin: 12px 0; /* Réduit de 15px */
+        }
+        
+        .nav-portrait {
+            width: 35px; /* Réduit de 40px */
+            height: 35px;
+            margin-right: 8px; /* Réduit de 10px */
+        }
+        
+        .logo {
+            font-size: 1.3rem; /* Réduit de 1.5rem */
+        }
+        
+        .text-slider {
+            font-size: 1.2rem; /* Réduit de 1.4rem */
+        }
+        
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 25px; /* Réduit de 30px */
+        }
+        
+        .cv-btn {
+            padding: 10px 20px; /* Réduit de 12px 24px */
+            font-size: 0.95rem; /* Réduit de 1rem */
+        }
+        
+        /* Correction pour le formulaire sur mobile */
+        .form-group label {
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            padding: 10px 14px;
+            font-size: 0.95rem;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            padding: 12px;
+            font-size: 1rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        :root {
+            --navbar-height: 65px; /* Réduit de 70px */
+        }
+        
+        #contact-hero {
+            padding-top: var(--navbar-height);
+        }
+        
+        .contact-hero-content h1 {
+            font-size: 1.9rem; /* Réduit de 2.2rem */
+        }
+        
+        .section-title h2 {
+            font-size: 1.6rem; /* Réduit de 1.8rem */
+        }
+        
+        .logo {
+            font-size: 1.2rem; /* Réduit de 1.3rem */
+        }
+        
+        .nav-portrait {
+            width: 32px; /* Réduit de 35px */
+            height: 32px;
+            margin-right: 6px; /* Réduit de 8px */
+        }
+        
+        .contact-info, .contact-form {
+            padding: 20px; /* Réduit de 25px */
+        }
+        
+        .contact-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            margin-bottom: 10px; /* Réduit de 15px */
+        }
+        
+        .social-links {
+            justify-content: center;
+            gap: 12px; /* Réduit de 15px */
+        }
+        
+        .text-slider {
+            font-size: 1.1rem; /* Réduit de 1.2rem */
+        }
+        
+        .footer-logo {
+            font-size: 1.6rem; /* Réduit de 1.8rem */
+        }
+        
+        .footer-nav {
+            gap: 12px; /* Réduit de 15px */
+            font-size: 0.9rem; /* Réduit de 0.95rem */
+        }
+        
+        section {
+            padding: 60px 0; /* Réduit de 80px */
+        }
+        
+        .contact-map {
+            height: 250px; /* Réduit de 300px */
+        }
+        
+        .cv-btn {
+            padding: 8px 16px; /* Réduit de 10px 20px */
+            font-size: 0.9rem; /* Réduit de 0.95rem */
+        }
+        
+        /* Espacement supplémentaire pour le formulaire */
+        .form-group {
+            margin-bottom: 15px;
+        }
+    }
+    </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Barre de navigation -->
     <header>
-        <div class="container">
-            <nav class="navbar">
+        <nav class="navbar">
+            <div class="container">
                 <a href="index.html" class="logo">
                     <img src="assets/images3/portrait_1.jpg" alt="Pauline Gnimavo" class="nav-portrait">
-                    <span>Pauline <span> Gnimavo</span></span>
+                    <span>Pauline <span>Gnimavo</span></span>
                 </a>
+                
+                <!-- Menu desktop -->
                 <ul class="nav-menu">
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="parcours.html">Parcours</a></li>
                     <li><a href="projets.html">Projets</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
+                
+                <!-- Menu mobile -->
                 <div class="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- Contact Section -->
-    <section id="contact">
+    <!-- Section Hero Contact -->
+    <section id="contact-hero">
+        <div class="contact-deco">
+            <div class="deco-circle"></div>
+            <div class="deco-circle"></div>
+        </div>
+        
         <div class="container">
-            <div class="section-title observe">
-                <h2>Contactez-moi</h2>
-                <p>Disponible pour un nouveau défi ou simplement échanger autour d'un projet</p>
+            <div class="contact-hero-content">
+                <h1>Contactez-moi</h1>
+                <p>Je suis à votre écoute pour toute opportunité ou collaboration</p>
+                
+                <div class="animated-text">
+                    <div class="text-slider">Échangeons autour de l'aménagement du territoire</div>
+                    <div class="text-slider">Discutons de vos projets et besoins</div>
+                    <div class="text-slider">Collaborons pour des solutions innovantes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Restons en Contact</h2>
+                <p>Vous pouvez me contacter par téléphone, email ou via le formulaire</p>
             </div>
             
             <div class="contact-container">
-                <div class="contact-info observe">
-                    <h3>Coordonnées</h3>
+                <div class="contact-info">
+                    <h3>Mes Coordonnées</h3>
+                    
                     <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Adresse</h4>
+                                <p>Parakou, Borgou, Bénin</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Téléphone</h4>
+                                <p><a href="tel:+2290159547724">+229 01 59 54 77 24</a></p>
+                            </div>
+                        </div>
+                        
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="contact-text">
                                 <h4>Email</h4>
-                                <p>paulinegnimavo24@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-file-download"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Télécharger mon CV</h4>
-                                <a href="CV_2025-06-29_Pauline_GNIMAVO.pdf" download class="download-cv">
-                                    Format PDF <i class="fas fa-download"></i>
-                                </a>
+                                <p><a href="mailto:paulinegnimavo24@gmail.com">paulinegnimavo24@gmail.com</a></p>
                             </div>
                         </div>
                     </div>
                     
-                    <h3>Réseaux Professionnels</h3>
+                    <!-- Bouton Télécharger CV -->
+                    <div class="cv-download">
+                        <a href="CV_2025-06-29_Pauline_GNIMAVO.pdf" download class="cv-btn">
+                            <i class="fas fa-download"></i> Télécharger mon CV
+                        </a>
+                    </div>
+                    
+                    <h3>Retrouvez-moi sur</h3>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/share/1EisEuG7PS/" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://wa.me/2290159547724" class="social-link"><i class="fab fa-whatsapp"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/share/16qDXAoQrk/" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 
-                <div class="contact-form observe">
+                <div class="contact-form">
+                    <h3>Envoyez un message</h3>
+                    
                     <form id="contactForm">
                         <div class="form-group">
-                            <label for="name">Nom complet</label>
-                            <input type="text" id="name" class="form-control" required>
+                            <label for="name">Votre nom</label>
+                            <input type="text" id="name" class="form-control" placeholder="Entrez votre nom" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Adresse email</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <label for="email">Votre email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Entrez votre email" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Objet de votre message" required>
                         </div>
                         
-                        <button type="submit" class="btn">Envoyer le message</button>
+                        <div class="form-group">
+                            <label for="message">Votre message</label>
+                            <textarea id="message" class="form-control" placeholder="Dites-moi comment je peux vous aider..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Envoyer le message</button>
                     </form>
-                    <div class="success-message" id="successMessage">
-                        <i class="fas fa-check-circle"></i> Votre message a été envoyé avec succès !
-                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-map">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Parakou, Bénin</h3>
+                    <p>Basée à Parakou, je suis disponible pour des opportunités dans toute la région</p>
                 </div>
             </div>
         </div>
@@ -108,20 +1100,97 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">Pauline <span> Gnimavo</span></div>
+                <div class="footer-logo">Pauline <span>Gnimavo</span></div>
                 <div class="footer-nav">
                     <a href="index.html">Accueil</a>
                     <a href="parcours.html">Parcours</a>
                     <a href="projets.html">Projets</a>
                     <a href="contact.html">Contact</a>
                 </div>
-                <p class="copyright">© 2023 Pauline Gnimavo. Tous droits réservés.</p>
+                <p class="copyright">© 2025 Pauline Gnimavo. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/scroll.js"></script>
-    <script src="js/contact.js"></script>
+    <script>
+    // Script pour menu mobile
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Bloquer le défilement du fond quand le menu est ouvert
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Fermer le menu au clic sur les liens
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+    
+    // Animation au scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation des éléments au défilement
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.contact-info, .contact-form, .contact-map').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Animation du fond
+        document.body.style.backgroundSize = "400% 400%";
+        document.body.style.animation = "bgFade 15s ease infinite";
+        
+        // Gestion du formulaire
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulation d'envoi
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            // Simulation d'envoi réussi
+            setTimeout(() => {
+                submitBtn.textContent = 'Message envoyé !';
+                submitBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                
+                // Réinitialisation après 3 secondes
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = 'linear-gradient(135deg, var(--primary-color), var(--accent-color))';
+                    contactForm.reset();
+                }, 3000);
+            }, 1500);
+        });
+    });
+    </script>
 </body>
 </html>

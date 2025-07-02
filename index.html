@@ -1,57 +1,790 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pauline Gnimavo - Accueil</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    /* Variables et reset */
+    :root {
+        --primary-color: #6a0dad;
+        --secondary-color: #d291bc;
+        --accent-color: #ff6b6b;
+        --light-color: #f8f4ff;
+        --dark-color: #4b0082;
+        --text-color: #333;
+        --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        --navbar-height: 80px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.7;
+        color: var(--text-color);
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #f9f9f9 0%, #f0e9ff 100%);
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 14px 32px;
+        background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+        color: white;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        font-size: 1.1rem;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .btn:hover, .btn:active {
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        z-index: -1;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .btn:hover::after, .btn:active::after {
+        opacity: 1;
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        margin-left: 15px;
+        box-shadow: none;
+    }
+
+    .btn-outline:hover, .btn-outline:active {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-5px);
+    }
+
+    section {
+        padding: 100px 0;
+    }
+
+    /* Header & Navigation */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        transition: var(--transition);
+        backdrop-filter: blur(5px);
+        height: var(--navbar-height);
+    }
+
+    .navbar {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        font-family: 'Playfair Display', serif;
+        white-space: nowrap; /* Empêche le débordement */
+    }
+
+    .logo span {
+        color: var(--secondary-color);
+    }
+
+    .nav-portrait {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid var(--secondary-color);
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Menu desktop */
+    .nav-menu {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin-left: 30px;
+    }
+
+    .nav-menu a {
+        font-weight: 600;
+        position: relative;
+        padding: 5px 0;
+        color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        transition: var(--transition);
+    }
+
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after {
+        width: 100%;
+    }
+
+    /* Menu mobile */
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        transition: var(--transition);
+        background-color: var(--primary-color);
+    }
+
+    /* ===== SECTION HERO REVUE ===== */
+    #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: var(--navbar-height); /* Espace pour la navbar */
+        background: linear-gradient(135deg, rgba(248, 244, 255, 0.9) 0%, rgba(248, 244, 255, 0.7) 100%);
+    }
+
+    .welcome-overlay {
+        position: absolute;
+        top: var(--navbar-height); /* Commence sous la navbar */
+        left: 0;
+        width: 100%;
+        height: calc(100% - var(--navbar-height)); /* Taille ajustée */
+        background: linear-gradient(135deg, rgba(106, 13, 173, 0.9) 0%, rgba(210, 145, 188, 0.9) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        opacity: 1;
+        transition: opacity 1.2s ease-in-out;
+    }
+
+    .welcome-content {
+        text-align: center;
+        color: white;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    .welcome-title {
+        font-size: 4.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+        text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transform: translateY(50px);
+        opacity: 0;
+        animation: fadeUp 1s forwards 0.3s;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+        opacity: 0;
+        animation: fadeUp 1s forwards 0.6s;
+        font-weight: 300;
+    }
+
+    .welcome-icon {
+        font-size: 3rem;
+        margin-bottom: 30px;
+        opacity: 0;
+        animation: fadeUp 1s forwards 0.9s;
+    }
+
+    .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 1.2s forwards 1.5s;
+        padding-top: 40px; /* Espace supplémentaire sous la navbar */
+    }
+
+    .hero-text {
+        flex: 1;
+    }
+
+    .hero-image {
+        flex: 1;
+        text-align: center;
+        position: relative;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        transition: all 0.5s ease;
+        position: relative;
+        z-index: 2;
+        animation: float 6s infinite ease-in-out;
+    }
+
+    /* Animation de l'image */
+    .hero-image:hover img {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 35px 60px rgba(0,0,0,0.35);
+    }
+
+    /* Effet de halo derrière l'image */
+    .hero-image::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 110%;
+        height: 110%;
+        background: radial-gradient(circle, var(--secondary-color) 0%, transparent 70%);
+        opacity: 0.3;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        border-radius: 50%;
+        animation: pulse 6s infinite ease-in-out;
+    }
+
+    .hero-text h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-family: 'Playfair Display', serif;
+        line-height: 1.2;
+    }
+
+    .hero-text .tagline {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        color: var(--secondary-color);
+        font-weight: 500;
+    }
+
+    /* Animation texte revue - version dynamique */
+    .text-slider-container {
+        min-height: 120px;
+        margin: 30px 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .text-slider {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--dark-color);
+        text-align: left;
+        transform: translateY(30px);
+        animation: slideText 12s infinite;
+    }
+
+    .text-slider:nth-child(1) { 
+        animation-delay: 0s; 
+        color: var(--primary-color);
+    }
+    .text-slider:nth-child(2) { 
+        animation-delay: 4s; 
+        color: var(--accent-color);
+    }
+    .text-slider:nth-child(3) { 
+        animation-delay: 8s; 
+        color: var(--dark-color);
+    }
+
+    .hero-btns {
+        display: flex;
+        margin-top: 40px;
+    }
+
+    /* Décorations animées */
+    .hero-deco {
+        position: absolute;
+        z-index: 1;
+        opacity: 0.1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .deco-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        animation: float 8s infinite ease-in-out;
+    }
+
+    .deco-circle:nth-child(1) {
+        top: 10%;
+        left: 5%;
+        width: 120px;
+        height: 120px;
+        animation-delay: 0s;
+    }
+
+    .deco-circle:nth-child(2) {
+        bottom: 20%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 2s;
+    }
+
+    .deco-circle:nth-child(3) {
+        bottom: 40%;
+        left: 20%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 4s;
+    }
+
+    .deco-circle:nth-child(4) {
+        top: 30%;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        animation-delay: 6s;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideText {
+        0%, 25% { opacity: 0; transform: translateY(30px); }
+        5%, 20% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+        50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.3; }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    /* RESPONSIVE HERO */
+    @media (max-width: 992px) {
+        .hero-content {
+            gap: 30px;
+        }
+        
+        .hero-text h1 {
+            font-size: 2.8rem;
+        }
+        
+        .hero-text .tagline {
+            font-size: 1.3rem;
+        }
+        
+        .text-slider {
+            font-size: 1.6rem;
+        }
+        
+        .welcome-title {
+            font-size: 3.5rem;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.5rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        :root {
+            --navbar-height: 80px;
+        }
+        
+        #hero {
+            min-height: calc(100vh - var(--navbar-height));
+            padding-top: var(--navbar-height);
+        }
+        
+        .hero-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 30px;
+            padding-top: 60px; /* Espace supplémentaire sous la navbar */
+        }
+        
+        .hero-text, .hero-image {
+            width: 100%;
+        }
+        
+        .hero-image {
+            order: -1;
+            margin-bottom: 30px;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-text h1 {
+            font-size: 2.3rem;
+        }
+        
+        .hero-text .tagline {
+            font-size: 1.2rem;
+        }
+        
+        .text-slider {
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        
+        .hero-btns {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-outline {
+            margin-left: 0;
+            margin-top: 15px;
+        }
+        
+        .hero-image::after {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .welcome-overlay {
+            top: var(--navbar-height);
+            height: calc(100% - var(--navbar-height));
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-icon {
+            font-size: 2rem;
+        }
+        
+        /* Correction pour éviter le débordement du texte */
+        .logo {
+            font-size: 1.5rem;
+        }
+        
+        .nav-portrait {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        :root {
+            --navbar-height: 70px;
+        }
+        
+        #hero {
+            padding-top: var(--navbar-height);
+        }
+        
+        .hero-image {
+            max-width: 280px;
+        }
+        
+        .hero-text h1 {
+            font-size: 2rem;
+        }
+        
+        .hero-btns {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .text-slider {
+            font-size: 1.2rem;
+        }
+        
+        .welcome-title {
+            font-size: 2rem;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1rem;
+        }
+        
+        /* Correction supplémentaire pour le texte */
+        .logo {
+            font-size: 1.3rem;
+        }
+        
+        .nav-portrait {
+            width: 35px;
+            height: 35px;
+            margin-right: 8px;
+        }
+    }
+    
+    /* Correction pour les animations au toucher */
+    @media (hover: none) {
+        .btn:active {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline:active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        color: white;
+        padding: 60px 0 30px;
+        text-align: center;
+    }
+
+    .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .footer-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .footer-logo span {
+        color: var(--secondary-color);
+    }
+
+    .footer-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        gap: 20px;
+    }
+
+    .footer-nav a {
+        transition: var(--transition);
+        font-weight: 500;
+    }
+
+    .footer-nav a:hover {
+        color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+
+    .copyright {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    /* Responsive navigation */
+    @media (max-width: 768px) {
+        .hamburger {
+            display: block;
+        }
+        
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: var(--navbar-height);
+            flex-direction: column;
+            background-color: white;
+            width: 100%;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            padding: 40px 0;
+            z-index: 999;
+            height: calc(100vh - var(--navbar-height));
+            overflow-y: auto;
+        }
+        
+        .nav-menu.active {
+            left: 0;
+        }
+        
+        .nav-menu li {
+            margin: 15px 0;
+        }
+    }
+    </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Barre de navigation corrigée -->
     <header>
-        <div class="container">
-            <nav class="navbar">
+        <nav class="navbar">
+            <div class="container">
                 <a href="index.html" class="logo">
                     <img src="assets/images3/portrait_1.jpg" alt="Pauline Gnimavo" class="nav-portrait">
-                    <span>Pauline <span> Gnimavo</span></span>
+                    <span>Pauline <span>Gnimavo</span></span>
                 </a>
+                
+                <!-- Menu desktop -->
                 <ul class="nav-menu">
                     <li><a href="index.html" class="active">Accueil</a></li>
                     <li><a href="parcours.html">Parcours</a></li>
                     <li><a href="projets.html">Projets</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                
+                <!-- Menu mobile -->
                 <div class="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section avec corrections finales -->
     <section id="hero">
+        <!-- Overlay de bienvenue -->
+        <div class="welcome-overlay" id="welcomeOverlay">
+            <div class="welcome-content">
+                <div class="welcome-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h1 class="welcome-title">Bienvenue</h1>
+                <p class="welcome-subtitle">Découvrez le parcours professionnel de Pauline Gnimavo</p>
+            </div>
+        </div>
+        
+        <!-- Décorations animées -->
+        <div class="hero-deco">
+            <div class="deco-circle"></div>
+            <div class="deco-circle"></div>
+            <div class="deco-circle"></div>
+            <div class="deco-circle"></div>
+        </div>
+        
         <div class="container">
             <div class="hero-content">
-                <h1>Pauline Gnimavo</h1>
-                <div class="tagline">Spécialiste en gestion commerciale & </div>
-                <div class="tagline">dynamique de terrain</div>
-                <div class="typed-container">
-                    <p class="typed-text line1"></p>
-                    <p class="typed-text line2"></p>
+                <div class="hero-image">
+                    <img src="assets/images3/portrait_2.jpg" alt="Pauline Gnimavo">
                 </div>
-                <div class="hero-btns">
-                    <a href="parcours.html" class="btn">Voir mes expériences</a>
-                    <a href="contact.html" class="btn btn-outline">Me contacter</a>
+                
+                <div class="hero-text">
+                    <h1>Pauline Gnimavo</h1>
+                    <p class="tagline">Agent de planification ou d'aménagement du territoire</p>
+                    
+                    <div class="text-slider-container">
+                        <div class="text-slider">Comprendre les besoins,</div>
+                        <div class="text-slider">anticiper les flux,</div>
+                        <div class="text-slider">tisser la confiance</div>
+                    </div>
+                    
+                    <div class="hero-btns">
+                        <a href="parcours.html" class="btn">Voir mes expériences</a>
+                        <a href="contact.html" class="btn btn-outline">Me contacter</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
-                <img src="assets/images3/portrait_2.jpg" alt="Pauline Gnimavo">
             </div>
         </div>
     </section>
@@ -60,19 +793,76 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">Pauline <span> Gnimavo</span></div>
+                <div class="footer-logo">Pauline <span>Gnimavo</span></div>
                 <div class="footer-nav">
                     <a href="index.html">Accueil</a>
                     <a href="parcours.html">Parcours</a>
                     <a href="projets.html">Projets</a>
                     <a href="contact.html">Contact</a>
                 </div>
-                <p class="copyright">© 2023 Pauline Gnimavo. Tous droits réservés.</p>
+                <p class="copyright">© 2025 Pauline Gnimavo. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/scroll.js"></script>
+    <script>
+    // Script pour menu mobile
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Bloquer le défilement du fond quand le menu est ouvert
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Fermer le menu au clic sur les liens
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+    
+    // Fermer le menu au clic en dehors
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Animation supplémentaire pour les boutons au survol
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Gestion de l'animation de bienvenue
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    
+    // Masquer l'overlay après 3 secondes
+    setTimeout(() => {
+        welcomeOverlay.style.opacity = '0';
+        
+        // Retirer complètement l'overlay après la transition
+        setTimeout(() => {
+            welcomeOverlay.style.display = 'none';
+        }, 1200);
+    }, 3000);
+    </script>
 </body>
 </html>

@@ -3,42 +3,772 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pauline Gnimavo - Projets</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <title>Pauline Gnimavo - Projets Professionnels</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    /* Variables et reset */
+    :root {
+        --primary-color: #6a0dad;
+        --secondary-color: #d291bc;
+        --accent-color: #ff6b6b;
+        --light-color: #f8f4ff;
+        --dark-color: #4b0082;
+        --text-color: #333;
+        --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        --navbar-height: 80px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.7;
+        color: var(--text-color);
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #f9f9f9 0%, #f0e9ff 100%);
+        animation: bgFade 8s infinite alternate;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    section {
+        padding: 100px 0;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        padding: 0 15px;
+    }
+
+    .section-title h2 {
+        font-size: 2.8rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+        letter-spacing: 1px;
+        animation: titlePulse 4s infinite ease-in-out;
+    }
+
+    .section-title p {
+        font-size: 1.2rem;
+        color: var(--dark-color);
+        max-width: 700px;
+        margin: 0 auto;
+        font-weight: 500;
+    }
+
+    .section-title h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+        animation: lineGrow 1.2s ease-out forwards;
+    }
+
+    /* Header & Navigation */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        transition: var(--transition);
+        backdrop-filter: blur(5px);
+        height: var(--navbar-height);
+    }
+
+    .navbar {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        font-family: 'Playfair Display', serif;
+        white-space: nowrap;
+    }
+
+    .logo span {
+        color: var(--secondary-color);
+    }
+
+    .nav-portrait {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid var(--secondary-color);
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.5s ease;
+    }
+
+    .logo:hover .nav-portrait {
+        transform: rotate(5deg) scale(1.05);
+    }
+
+    /* Menu desktop */
+    .nav-menu {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin-left: 30px;
+        position: relative;
+    }
+
+    .nav-menu a {
+        font-weight: 600;
+        position: relative;
+        padding: 5px 0;
+        color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        transition: var(--transition);
+    }
+
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after {
+        width: 100%;
+    }
+
+    /* Menu mobile */
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        transition: var(--transition);
+        background-color: var(--primary-color);
+    }
+
+    /* ===== HERO PROJETS ===== */
+    #projets-hero {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: var(--navbar-height);
+        background: linear-gradient(135deg, rgba(248, 244, 255, 0.9) 0%, rgba(248, 244, 255, 0.7) 100%);
+    }
+
+    .projets-hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .projets-hero-content h1 {
+        font-size: 3.8rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+        animation: fadeUp 1s ease forwards;
+    }
+
+    .projets-hero-content p {
+        font-size: 1.5rem;
+        color: var(--dark-color);
+        margin-bottom: 40px;
+        animation: fadeUp 1s ease forwards 0.3s;
+        font-weight: 500;
+    }
+
+    .animated-text {
+        min-height: 120px;
+        margin: 30px 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .text-slider {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--dark-color);
+        text-align: center;
+        transform: translateY(30px);
+        animation: slideText 12s infinite;
+    }
+
+    .text-slider:nth-child(1) { 
+        animation-delay: 0s; 
+        color: var(--primary-color);
+    }
+    .text-slider:nth-child(2) { 
+        animation-delay: 4s; 
+        color: var(--accent-color);
+    }
+    .text-slider:nth-child(3) { 
+        animation-delay: 8s; 
+        color: var(--dark-color);
+    }
+
+    .projets-deco {
+        position: absolute;
+        z-index: 1;
+        opacity: 0.1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .deco-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        animation: float 8s infinite ease-in-out;
+    }
+
+    .deco-circle:nth-child(1) {
+        top: 10%;
+        left: 5%;
+        width: 120px;
+        height: 120px;
+        animation-delay: 0s;
+    }
+
+    .deco-circle:nth-child(2) {
+        bottom: 20%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 2s;
+    }
+
+    .deco-circle:nth-child(3) {
+        top: 40%;
+        right: 10%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 4s;
+    }
+
+    /* ===== PROJECT CARDS ===== */
+    .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        margin-top: 50px;
+    }
+
+    .project-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(106, 13, 173, 0.1);
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.8s ease forwards;
+        position: relative;
+        perspective: 1000px;
+    }
+
+    .project-card:nth-child(1) { animation-delay: 0.2s; }
+    .project-card:nth-child(2) { animation-delay: 0.4s; }
+    .project-card:nth-child(3) { animation-delay: 0.6s; }
+
+    .project-card:hover {
+        transform: translateY(-15px) rotate(1deg);
+        box-shadow: 0 25px 60px rgba(106, 13, 173, 0.2);
+    }
+
+    .project-img {
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .project-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+
+    .project-card:hover .project-img img {
+        transform: scale(1.1) rotate(1deg);
+    }
+
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(106, 13, 173, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .project-card:hover .project-overlay {
+        opacity: 1;
+    }
+
+    .project-overlay a {
+        color: white;
+        font-size: 2.5rem;
+        margin: 0 20px;
+        transition: var(--transition);
+        animation: iconPulse 2s infinite ease-in-out;
+    }
+
+    .project-overlay a:hover {
+        color: var(--accent-color);
+        transform: translateY(-10px);
+        animation: none;
+    }
+
+    .project-content {
+        padding: 30px;
+        transform-origin: bottom;
+        transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-content {
+        transform: rotateX(-2deg);
+    }
+
+    .project-content h3 {
+        margin-bottom: 15px;
+        color: var(--primary-color);
+        font-size: 1.6rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .project-content h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+        animation: linePulse 3s infinite ease-in-out;
+    }
+
+    .project-content p {
+        margin-bottom: 20px;
+        color: #555;
+        line-height: 1.8;
+    }
+
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .project-tag {
+        background: rgba(210, 145, 188, 0.1);
+        color: var(--secondary-color);
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .project-tag:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        color: white;
+        padding: 80px 0 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .footer-logo {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+        animation: fadeUp 1s ease;
+    }
+
+    .footer-logo span {
+        color: var(--secondary-color);
+    }
+
+    .footer-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        gap: 25px;
+    }
+
+    .footer-nav a {
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 1.1rem;
+        position: relative;
+    }
+
+    .footer-nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-color);
+        transition: var(--transition);
+    }
+
+    .footer-nav a:hover::after {
+        width: 100%;
+    }
+
+    .footer-nav a:hover {
+        color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+
+    .copyright {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        margin-top: 30px;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    @keyframes slideText {
+        0%, 25% { opacity: 0; transform: translateY(30px); }
+        5%, 20% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineGrow {
+        from { width: 0; }
+        to { width: 80px; }
+    }
+
+    @keyframes iconPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    @keyframes linePulse {
+        0%, 100% { width: 60px; opacity: 1; }
+        50% { width: 80px; opacity: 0.8; }
+    }
+
+    @keyframes bgFade {
+        from { background-position: 0% 0%; }
+        to { background-position: 100% 100%; }
+    }
+
+    @keyframes titlePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+
+    /* RESPONSIVE STYLES */
+    @media (max-width: 992px) {
+        .projets-hero-content h1 {
+            font-size: 3.2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.3rem;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        :root {
+            --navbar-height: 80px;
+        }
+        
+        #projets-hero {
+            min-height: 60vh;
+            padding-top: var(--navbar-height);
+        }
+        
+        .projets-hero-content h1 {
+            font-size: 2.6rem;
+        }
+        
+        .projets-hero-content p {
+            font-size: 1.2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+        }
+        
+        /* Navigation mobile */
+        .hamburger {
+            display: block;
+        }
+        
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: var(--navbar-height);
+            flex-direction: column;
+            background-color: white;
+            width: 100%;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            padding: 40px 0;
+            z-index: 999;
+            height: calc(100vh - var(--navbar-height));
+            overflow-y: auto;
+        }
+        
+        .nav-menu.active {
+            left: 0;
+        }
+        
+        .nav-menu li {
+            margin: 15px 0;
+        }
+        
+        .nav-portrait {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+        }
+        
+        .projects-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .text-slider {
+            font-size: 1.4rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        :root {
+            --navbar-height: 70px;
+        }
+        
+        #projets-hero {
+            padding-top: var(--navbar-height);
+        }
+        
+        .projets-hero-content h1 {
+            font-size: 2.2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+        }
+        
+        .nav-portrait {
+            width: 35px;
+            height: 35px;
+            margin-right: 8px;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .text-slider {
+            font-size: 1.2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+        }
+        
+        .footer-nav {
+            gap: 15px;
+            font-size: 0.95rem;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+    }
+    </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Barre de navigation -->
     <header>
-        <div class="container">
-            <nav class="navbar">
+        <nav class="navbar">
+            <div class="container">
                 <a href="index.html" class="logo">
                     <img src="assets/images3/portrait_1.jpg" alt="Pauline Gnimavo" class="nav-portrait">
-                    <span>Pauline <span> Gnimavo</span></span>
+                    <span>Pauline <span>Gnimavo</span></span>
                 </a>
+                
+                <!-- Menu desktop -->
                 <ul class="nav-menu">
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="parcours.html">Parcours</a></li>
                     <li><a href="projets.html" class="active">Projets</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                
+                <!-- Menu mobile -->
                 <div class="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- Projects Section -->
-    <section id="projets">
+    <!-- Section Hero Projets -->
+    <section id="projets-hero">
+        <div class="projets-deco">
+            <div class="deco-circle"></div>
+            <div class="deco-circle"></div>
+            <div class="deco-circle"></div>
+        </div>
+        
+        <div class="container">
+            <div class="projets-hero-content">
+                <h1>Mes Projets & Réalisations</h1>
+                <p>Découvrez mes missions concrètes et mes approches innovantes</p>
+                
+                <div class="animated-text">
+                    <div class="text-slider">Stratégies locales de fidélisation et de croissance</div>
+                    <div class="text-slider">Gestion autonome de points de vente</div>
+                    <div class="text-slider">Études de marché et adaptations territoriales</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Projets -->
+    <section id="projets-cards">
         <div class="container">
             <div class="section-title">
-                <h2>Projets & Réalisations</h2>
-                <p>Mes missions concrètes et approches locales</p>
+                <h2>Mes Projets</h2>
+                <p>Réalisations concrètes dans le domaine commercial et territorial</p>
             </div>
             
             <div class="projects-container">
@@ -47,6 +777,7 @@
                         <img src="assets/images3/projet_1.jpg" alt="Stratégies locales de fidélisation">
                         <div class="project-overlay">
                             <a href="#"><i class="fas fa-search-plus"></i></a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -65,6 +796,7 @@
                         <img src="assets/images3/projet_2.jpg" alt="Gestion autonome d'un point de vente">
                         <div class="project-overlay">
                             <a href="#"><i class="fas fa-search-plus"></i></a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -83,6 +815,7 @@
                         <img src="assets/images3/projet_3.jpg" alt="Étude du marché local">
                         <div class="project-overlay">
                             <a href="#"><i class="fas fa-search-plus"></i></a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -103,20 +836,83 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">Pauline <span> Gnimavo</span></div>
+                <div class="footer-logo">Pauline <span>Gnimavo</span></div>
                 <div class="footer-nav">
                     <a href="index.html">Accueil</a>
                     <a href="parcours.html">Parcours</a>
                     <a href="projets.html">Projets</a>
                     <a href="contact.html">Contact</a>
                 </div>
-                <p class="copyright">© 2023 Pauline Gnimavo. Tous droits réservés.</p>
+                <p class="copyright">© 2025 Pauline Gnimavo. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/scroll.js"></script>
-    <script src="js/lightbox.js"></script>
+    <script>
+    // Script pour menu mobile
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Bloquer le défilement du fond quand le menu est ouvert
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Fermer le menu au clic sur les liens
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+    
+    // Animation au scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation des éléments au défilement
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.project-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Animation du fond
+        document.body.style.backgroundSize = "400% 400%";
+        document.body.style.animation = "bgFade 15s ease infinite";
+        
+        // Animation des tags
+        const projectTags = document.querySelectorAll('.project-tag');
+        projectTags.forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'translateY(-5px)';
+                tag.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = '';
+                tag.style.boxShadow = '';
+            });
+        });
+    });
+    </script>
 </body>
 </html>
